@@ -55,17 +55,3 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', LogoutController::class)
         ->name('logout');
 });
-
-Route::get('build', function(){
-    
-    $process = Ssh::create('u1119-ahcvzbcli3ee', 'gukm1051.siteground.biz', 18765)
-        ->execute([
-            'cd ~/www/marks364.sg-host.com',
-            './build.sh'
-        ]);
-
-    ray($process->isSuccessful());
-    ray($process->getOutput());
-
-
-});
