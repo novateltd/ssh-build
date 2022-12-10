@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\LogoutController;
+use Spatie\Ssh\Ssh;
 use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Auth\Passwords\Confirm;
+use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Auth\Register;
+use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
-use App\Http\Livewire\Auth\Register;
-use App\Http\Livewire\Auth\Verify;
-use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Auth\Passwords\Confirm;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +54,18 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
+});
+
+Route::get('build', function(){
+    
+    $process = Ssh::create('u1119-ahcvzbcli3ee', 'gukm1051.siteground.biz', 18765)
+        ->execute([
+            'cd ~/www/marks364.sg-host.com',
+            './build.sh'
+        ]);
+
+    ray($process->isSuccessful());
+    ray($process->getOutput());
+
+
 });
